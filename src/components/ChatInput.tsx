@@ -31,31 +31,67 @@ export default function ChatInput({
   return (
     <form
       onSubmit={handleSubmit}
-      className="border-t bg-white dark:bg-gray-900 p-4"
+      className="surface-elevated border-t border-default p-6"
     >
-      <div className="max-w-4xl mx-auto flex gap-2">
-        <textarea
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="Ask a question..."
-          className="flex-1 resize-none border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white min-h-[44px] max-h-32"
-          disabled={isLoading}
-          rows={1}
-        />
-        <button
-          type="submit"
-          disabled={!message.trim() || isLoading}
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors min-w-[80px]"
-        >
-          {isLoading ? (
-            <div className="flex items-center justify-center">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-            </div>
-          ) : (
-            "Send"
-          )}
-        </button>
+      <div className="max-w-4xl mx-auto">
+        <div className="flex items-end gap-3">
+          <div className="flex-1">
+            <textarea
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Ask a question..."
+              className="input-default w-full resize-none rounded-lg px-4 py-3 min-h-[48px] max-h-32 focus-ring"
+              disabled={isLoading}
+              rows={1}
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={!message.trim() || isLoading}
+            className="btn-primary px-6 py-3 rounded-lg flex items-center space-x-2 min-w-[80px] justify-center focus-ring"
+          >
+            {isLoading ? (
+              <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+            ) : (
+              <>
+                <span className="font-medium">Send</span>
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                  />
+                </svg>
+              </>
+            )}
+          </button>
+        </div>
+
+        {/* Keyboard shortcuts */}
+        <div className="flex items-center justify-between mt-3 text-xs text-muted">
+          <div className="flex items-center space-x-4">
+            <span className="flex items-center">
+              <kbd className="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded border border-default text-xs font-mono mr-1">
+                Enter
+              </kbd>
+              to send
+            </span>
+            <span className="flex items-center">
+              <kbd className="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded border border-default text-xs font-mono mr-1">
+                Shift + Enter
+              </kbd>
+              for new line
+            </span>
+          </div>
+        </div>
       </div>
     </form>
   );

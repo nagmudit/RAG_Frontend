@@ -71,23 +71,58 @@ export default function Chat() {
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-4">
+      <div className="surface-elevated border-b border-default p-6">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
-          <h1 className="text-xl font-semibold text-gray-900 dark:text-white">
-            RAG Chat Assistant
-          </h1>
+          <div className="flex items-center space-x-4">
+            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+              <svg
+                className="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                />
+              </svg>
+            </div>
+            <div>
+              <h1 className="text-xl font-semibold text-primary">
+                AI Chat Assistant
+              </h1>
+              <p className="text-muted text-sm">
+                Ask questions and get intelligent responses
+              </p>
+            </div>
+          </div>
           <button
             onClick={clearChat}
-            className="px-3 py-1 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            className="btn-secondary px-4 py-2 text-sm rounded-lg flex items-center space-x-2"
           >
-            Clear Chat
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              />
+            </svg>
+            <span>Clear Chat</span>
           </button>
         </div>
       </div>
 
       {/* Error Banner */}
       {error && (
-        <div className="bg-red-50 dark:bg-red-900/20 border-b border-red-200 dark:border-red-800 p-4">
+        <div className="bg-red-50 border-b border-red-200 p-4 dark:bg-red-900/20 dark:border-red-800">
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center">
               <div className="flex-shrink-0">
@@ -111,7 +146,7 @@ export default function Chat() {
               <div className="ml-auto">
                 <button
                   onClick={() => setError(null)}
-                  className="text-red-400 hover:text-red-600 dark:hover:text-red-300"
+                  className="text-red-400 hover:text-red-600 dark:hover:text-red-300 transition-colors"
                 >
                   <span className="sr-only">Dismiss</span>
                   <svg
@@ -133,35 +168,76 @@ export default function Chat() {
       )}
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900">
-        <div className="max-w-4xl mx-auto p-4">
+      <div className="flex-1 overflow-y-auto surface p-6">
+        <div className="max-w-4xl mx-auto">
           {messages.length === 0 ? (
-            <div className="text-center text-gray-500 dark:text-gray-400 mt-8">
-              <svg
-                className="mx-auto h-12 w-12 text-gray-400 mb-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                />
-              </svg>
-              <p className="text-lg">Start a conversation</p>
-              <p className="text-sm mt-1">
-                Ask any question and get AI-powered answers with citations.
-              </p>
+            <div className="text-center mt-16 space-y-8">
+              <div className="animate-slide-in">
+                <div className="w-16 h-16 mx-auto bg-blue-100 dark:bg-blue-900 rounded-2xl flex items-center justify-center mb-6">
+                  <svg
+                    className="w-8 h-8 text-blue-600 dark:text-blue-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div>
+                <h2 className="text-2xl font-semibold text-primary mb-3">
+                  Welcome to RAG Assistant
+                </h2>
+                <p className="text-secondary text-lg mb-8 max-w-md mx-auto">
+                  Ask any question and get intelligent answers backed by your
+                  knowledge base.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+                {[
+                  {
+                    icon: "🔍",
+                    title: "Smart Search",
+                    text: "Search through documents intelligently",
+                  },
+                  {
+                    icon: "💡",
+                    title: "Deep Insights",
+                    text: "Get comprehensive analysis and insights",
+                  },
+                  {
+                    icon: "📚",
+                    title: "Knowledge Base",
+                    text: "Access your curated knowledge repository",
+                  },
+                  {
+                    icon: "⚡",
+                    title: "Fast Responses",
+                    text: "Lightning-fast AI-powered answers",
+                  },
+                ].map((feature, index) => (
+                  <div key={index} className="card p-4 text-left">
+                    <div className="text-2xl mb-3">{feature.icon}</div>
+                    <h3 className="font-medium text-primary mb-1">
+                      {feature.title}
+                    </h3>
+                    <p className="text-sm text-secondary">{feature.text}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           ) : (
-            <>
+            <div className="space-y-6">
               {messages.map((message) => (
                 <ChatMessage key={message.id} message={message} />
               ))}
               {isLoading && <LoadingMessage />}
-            </>
+            </div>
           )}
           <div ref={messagesEndRef} />
         </div>
