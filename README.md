@@ -1,24 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RAG Chat Frontend
+
+A modern, responsive chat interface for a Retrieval-Augmented Generation (RAG) application built with Next.js, TypeScript, and TailwindCSS.
+
+## Features
+
+- **Clean Chat Interface**: Interactive chat with user messages and AI responses
+- **Citation Support**: AI responses display up to 5 clickable citation links
+- **Content Ingestion**: Add URLs to the knowledge base through a dedicated interface
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Dark/Light Mode**: Automatic theme detection with system preferences
+- **Error Handling**: Graceful error states and loading indicators
+- **Real-time Updates**: Smooth message updates with scroll-to-bottom behavior
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── api/
+│   │   ├── ask/route.ts          # API route for chat questions
+│   │   └── ingest/route.ts       # API route for URL ingestion
+│   ├── ingest/
+│   │   └── page.tsx              # URL ingestion page
+│   ├── globals.css               # Global styles
+│   ├── layout.tsx                # Root layout with navigation
+│   └── page.tsx                  # Main chat page
+├── components/
+│   ├── Chat.tsx                  # Main chat container
+│   ├── ChatInput.tsx             # Message input component
+│   ├── ChatMessage.tsx           # Individual message display
+│   ├── LoadingMessage.tsx        # Loading indicator
+│   ├── Navigation.tsx            # Top navigation bar
+│   └── UrlIngest.tsx             # URL ingestion form
+├── types/
+│   └── index.ts                  # TypeScript type definitions
+└── utils/
+    └── api.ts                    # API utility functions
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ and npm
+- A RAG backend service running on port 8000 (or configure BACKEND_URL)
+
+### Installation
+
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Set up environment variables:
+```bash
+cp .env.example .env.local
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Edit `.env.local` and configure your backend URL:
+```
+BACKEND_URL=http://localhost:8000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Start the development server:
+```bash
+npm run dev
+```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Learn More
 
