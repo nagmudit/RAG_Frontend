@@ -56,3 +56,31 @@ export const ingestUrls = async (urls: string[]): Promise<IngestResponse> => {
     throw new ApiError('Network error: Unable to connect to the server');
   }
 };
+
+export const uploadDocuments = async (files: File[]): Promise<IngestResponse> => {
+  try {
+    const formData = new FormData();
+
+    files.forEach((file) => {
+      formData.append('documents', file);
+    });
+
+    const response = await fetch('/api/upload-doc', {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const errorData: ApiErrorType = await response.json();
+      throw new ApiError(errorData.error || 'Failed to upload documents', response.status);
+    }
+
+    const data: IngestResponse = await response.json();
+    return data;
+  } catch (error) {
+    if (error instanceof ApiError) {
+      throw error;
+    }
+    throw new ApiError('Network error: Unable to connect to the server');
+  }
+};

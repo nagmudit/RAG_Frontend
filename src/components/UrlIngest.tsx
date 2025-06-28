@@ -84,26 +84,7 @@ export default function UrlIngest() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 relative">
-      <Link
-        href="/"
-        className="absolute top-6 right-6 p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors text-secondary hover:text-primary z-10"
-        title="Back to Chat"
-      >
-        <svg
-          className="w-5 h-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
-      </Link>
+    <div className="w-full relative">
       <div className="card shadow-elevated">
         {/* Header */}
         <div className="p-8 border-b border-default">
