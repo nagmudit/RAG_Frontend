@@ -1,17 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
 
-export default function Navigation() {
-  const pathname = usePathname();
+interface NavigationProps {
+  onClearChat?: () => void;
+  showClearChat?: boolean;
+}
 
-  const navItems = [
-    { href: "/", label: "Chat", icon: "💬" },
-    { href: "/ingest", label: "Add Content", icon: "�" },
-  ];
-
+export default function Navigation({
+  onClearChat,
+  showClearChat,
+}: NavigationProps) {
   return (
     <nav className="surface-elevated border-b border-default shadow-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,21 +32,28 @@ export default function Navigation() {
             </Link>
           </div>
 
-          <div className="flex items-center space-x-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 focus-ring ${
-                  pathname === item.href
-                    ? "bg-blue-50 text-blue-700 border border-blue-200 shadow-sm dark:bg-blue-900/50 dark:text-blue-300 dark:border-blue-800"
-                    : "text-secondary hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800"
-                }`}
+          <div className="flex items-center space-x-2">
+            {showClearChat && onClearChat && (
+              <button
+                onClick={onClearChat}
+                className="btn-secondary px-3 py-2 text-sm rounded-lg flex items-center space-x-2"
               >
-                <span className="text-base">{item.icon}</span>
-                <span>{item.label}</span>
-              </Link>
-            ))}
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  />
+                </svg>
+                <span>Clear Chat</span>
+              </button>
+            )}
 
             <div className="w-px h-6 bg-border mx-2"></div>
 

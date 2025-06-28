@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import Link from "next/link";
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
@@ -47,6 +48,26 @@ export default function ChatInput({
             />
           </div>
 
+          <Link
+            href="/ingest"
+            className="btn-secondary px-4 py-3 rounded-lg flex items-center space-x-2 focus-ring"
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 4v16m8-8H4"
+              />
+            </svg>
+            <span>Add Content</span>
+          </Link>
+
           <button
             type="submit"
             disabled={!message.trim() || isLoading}
@@ -58,7 +79,7 @@ export default function ChatInput({
               <>
                 <span className="font-medium">Send</span>
                 <svg
-                  className="w-4 h-4"
+                  className="w-4 h-4 rotate-90"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"

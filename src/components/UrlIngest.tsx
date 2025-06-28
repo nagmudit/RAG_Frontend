@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { ingestUrls, ApiError } from "@/utils/api";
 
 export default function UrlIngest() {
@@ -83,7 +84,26 @@ export default function UrlIngest() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto p-6 relative">
+      <Link
+        href="/"
+        className="absolute top-6 right-6 p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors text-secondary hover:text-primary z-10"
+        title="Back to Chat"
+      >
+        <svg
+          className="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </Link>
       <div className="card shadow-elevated">
         {/* Header */}
         <div className="p-8 border-b border-default">
@@ -119,7 +139,7 @@ export default function UrlIngest() {
           {/* Success Message */}
           {successMessage && (
             <div className="mb-6 bg-green-50 border border-green-200 rounded-lg p-4 dark:bg-green-900/20 dark:border-green-800">
-              <div className="flex items-center">
+              <div className="flex items-start">
                 <div className="flex-shrink-0">
                   <div className="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
                     <svg
@@ -136,9 +156,28 @@ export default function UrlIngest() {
                   </div>
                 </div>
                 <div className="ml-4 flex-1">
-                  <p className="text-green-800 dark:text-green-200 font-medium">
+                  <p className="text-green-800 dark:text-green-200 font-medium mb-3">
                     {successMessage}
                   </p>
+                  <Link
+                    href="/"
+                    className="inline-flex items-center space-x-2 text-green-700 dark:text-green-300 hover:text-green-800 dark:hover:text-green-200 font-medium transition-colors"
+                  >
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                      />
+                    </svg>
+                    <span>Start chatting with your new content →</span>
+                  </Link>
                 </div>
                 <div className="ml-auto">
                   <button
