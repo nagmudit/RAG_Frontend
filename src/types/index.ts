@@ -71,3 +71,33 @@ export interface ApiError {
   error: string;
   details?: string;
 }
+
+// New FastAPI Backend Types (Added endpoints)
+export interface ClearRequest {
+  confirm?: boolean;
+}
+
+export interface ClearResponse {
+  success: boolean;
+  message: string;
+  files_deleted: string[];
+  documents_cleared: number;
+}
+
+export interface VectorstoreInfoResponse {
+  document_count: number;
+  vectorstore_loaded: boolean;
+  index_exists_on_disk: boolean;
+  index_path: string;
+  error?: string | null;
+}
+
+export interface RateLimitStatsResponse {
+  // The schema is empty in the API doc, so we'll use a flexible type
+  [key: string]: unknown;
+}
+
+export interface RootResponse {
+  // The schema is empty in the API doc, so we'll use a flexible type
+  [key: string]: unknown;
+}

@@ -5,7 +5,11 @@ import {
   AskResponse,
   ScrapeResponse,
   DocumentUploadResponse,
-  HealthResponse 
+  HealthResponse,
+  ClearResponse,
+  VectorstoreInfoResponse,
+  RateLimitStatsResponse,
+  RootResponse
 } from '@/types';
 
 export class ApiError extends Error {
@@ -205,6 +209,89 @@ export const getStats = async (): Promise<Record<string, unknown>> => {
     
     if (!response.ok) {
       throw new ApiError('Failed to get stats', response.status);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    if (error instanceof ApiError) {
+      throw error;
+    }
+    throw new ApiError('Network error: Unable to connect to the server');
+  }
+};
+
+// Get rate limit stats from FastAPI
+export const getRateLimitStats = async (): Promise<RateLimitStatsResponse> => {
+  try {
+    const response = await fetch(`${getBackendUrl()}/api/v1/rate-limit-stats`);
+    
+    if (!response.ok) {
+      throw new ApiError('Failed to get rate limit stats', response.status);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    if (error instanceof ApiError) {
+      throw error;
+    }
+    throw new ApiError('Network error: Unable to connect to the server');
+  }
+};
+
+// Get vectorstore information from FastAPI
+export const getVectorstoreInfo = async (): Promise<VectorstoreInfoResponse> => {
+  try {
+    const response = await fetch(`${getBackendUrl()}/api/v1/vectorstore-info`);
+    
+    if (!response.ok) {
+      throw new ApiError('Failed to get vectorstore info', response.status);
+    }
+
+    const data: VectorstoreInfoResponse = await response.json();
+    return data;
+  } catch (error) {
+    if (error instanceof ApiError) {
+      throw error;
+    }
+    throw new ApiError('Network error: Unable to connect to the server');
+  }
+};
+
+// Clear knowledge base (DANGEROUS OPERATION)
+export const clearKnowledgeBase = async (confirm: boolean = false): Promise<ClearResponse> => {
+  try {
+    const response = await fetch(`${getBackendUrl()}/api/v1/clear`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ confirm }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new ApiError(errorData.detail || 'Failed to clear knowledge base', response.status);
+    }
+
+    const data: ClearResponse = await response.json();
+    return data;
+  } catch (error) {
+    if (error instanceof ApiError) {
+      throw error;
+    }
+    throw new ApiError('Network error: Unable to connect to the server');
+  }
+};
+
+// Get root endpoint info
+export const getRootInfo = async (): Promise<RootResponse> => {
+  try {
+    const response = await fetch(`${getBackendUrl()}/`);
+    
+    if (!response.ok) {
+      throw new ApiError('Failed to get root info', response.status);
     }
 
     const data = await response.json();

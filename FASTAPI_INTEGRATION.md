@@ -8,11 +8,15 @@ This Next.js frontend has been integrated with your FastAPI backend. The integra
 
 Your FastAPI backend endpoints are now fully integrated:
 
+- **Root Info**: `GET /`
 - **Health Check**: `GET /api/v1/health`
 - **Ask Question**: `POST /api/v1/ask`
 - **Scrape URLs**: `POST /api/v1/scrape`
 - **Upload Document**: `POST /api/v1/upload`
 - **Get Stats**: `GET /api/v1/stats`
+- **Get Rate Limit Stats**: `GET /api/v1/rate-limit-stats`
+- **Clear Knowledge Base**: `POST /api/v1/clear`
+- **Get Vectorstore Info**: `GET /api/v1/vectorstore-info`
 
 ### Environment Configuration
 
