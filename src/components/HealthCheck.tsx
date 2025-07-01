@@ -96,14 +96,14 @@ export default function HealthCheck() {
         {/* Show root info if available */}
         {rootInfo && Object.keys(rootInfo).length > 0 && (
           <div className="text-xs text-muted pl-4">
-            {Object.entries(rootInfo).map(([key, value]) => (
+            {/* {Object.entries(rootInfo).map(([key, value]) => (
               <div key={key}>
                 {key}:{" "}
                 {typeof value === "object"
                   ? JSON.stringify(value)
                   : String(value)}
               </div>
-            ))}
+            ))} */}
           </div>
         )}
       </div>

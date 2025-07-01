@@ -182,43 +182,28 @@ export default function EnhancedStatsDisplay() {
       )}
 
       {/* General Stats */}
-      {stats && (
+      {/* {stats && (
         <div className="p-4 border border-default rounded-lg surface">
           <h3 className="text-sm font-medium text-primary mb-3 flex items-center">
-            <svg
-              className="w-4 h-4 mr-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-              />
+            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
             General Statistics
           </h3>
           <div className="space-y-2">
             {Object.entries(stats).map(([key, value]) => (
-              <div
-                key={key}
-                className="flex justify-between items-center text-sm"
-              >
+              <div key={key} className="flex justify-between items-center text-sm">
                 <span className="text-secondary capitalize">
-                  {key.replace(/_/g, " ")}:
+                  {key.replace(/_/g, ' ')}:
                 </span>
                 <span className="text-primary font-medium">
-                  {typeof value === "object"
-                    ? JSON.stringify(value)
-                    : String(value)}
+                  {typeof value === 'object' ? JSON.stringify(value) : String(value)}
                 </span>
               </div>
             ))}
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Rate Limit Stats */}
       {rateLimitStats && Object.keys(rateLimitStats).length > 0 && (
@@ -241,45 +226,6 @@ export default function EnhancedStatsDisplay() {
           </h3>
           <div className="space-y-2">
             {Object.entries(rateLimitStats).map(([key, value]) => (
-              <div
-                key={key}
-                className="flex justify-between items-center text-sm"
-              >
-                <span className="text-secondary capitalize">
-                  {key.replace(/_/g, " ")}:
-                </span>
-                <span className="text-primary font-medium">
-                  {typeof value === "object"
-                    ? JSON.stringify(value)
-                    : String(value)}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Backend Root Info */}
-      {rootInfo && Object.keys(rootInfo).length > 0 && (
-        <div className="p-4 border border-default rounded-lg surface">
-          <h3 className="text-sm font-medium text-primary mb-3 flex items-center">
-            <svg
-              className="w-4 h-4 mr-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            Backend Information
-          </h3>
-          <div className="space-y-2">
-            {Object.entries(rootInfo).map(([key, value]) => (
               <div
                 key={key}
                 className="flex justify-between items-center text-sm"
