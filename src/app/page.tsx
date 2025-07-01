@@ -24,8 +24,8 @@ export default function Home() {
     <div className="h-full flex flex-col">
       <Navigation onClearChat={handleClearChat} showClearChat={true} />
       <div className="flex-1 flex flex-col">
-        {/* Backend health status */}
-        <div className="px-6 py-2 border-b border-default bg-surface">
+        {/* Backend health status - Fixed height to prevent layout shift */}
+        <div className="px-6 py-2 border-b border-default bg-surface min-h-[48px] flex items-center">
           <HealthCheck />
         </div>
         <Chat onClearChat={handleClearChatRef} />

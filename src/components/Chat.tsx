@@ -129,84 +129,95 @@ export default function Chat({ onClearChat }: ChatProps) {
         </div>
       )}
 
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto surface p-6">
-        <div className="max-w-4xl mx-auto">
-          {messages.length === 0 ? (
-            <div className="text-center mt-16 space-y-8">
-              <div className="animate-slide-in">
-                <div className="w-16 h-16 mx-auto bg-blue-100 dark:bg-blue-900 rounded-2xl flex items-center justify-center mb-6">
-                  <svg
-                    className="w-8 h-8 text-blue-600 dark:text-blue-400"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div>
-                <h2 className="text-2xl font-semibold text-primary mb-3">
-                  Welcome to RAG Assistant
-                </h2>
-                <p className="text-secondary text-lg mb-8 max-w-md mx-auto">
-                  Ask any question and get intelligent answers backed by your
-                  knowledge base.
-                </p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
-                {[
-                  {
-                    icon: "🔍",
-                    title: "Smart Search",
-                    text: "Search through documents intelligently",
-                  },
-                  {
-                    icon: "💡",
-                    title: "Deep Insights",
-                    text: "Get comprehensive analysis and insights",
-                  },
-                  {
-                    icon: "📚",
-                    title: "Knowledge Base",
-                    text: "Access your curated knowledge repository",
-                  },
-                  {
-                    icon: "⚡",
-                    title: "Fast Responses",
-                    text: "Lightning-fast AI-powered answers",
-                  },
-                ].map((feature, index) => (
-                  <div key={index} className="card p-4 text-left">
-                    <div className="text-2xl mb-3">{feature.icon}</div>
-                    <h3 className="font-medium text-primary mb-1">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sm text-secondary">{feature.text}</p>
+      {/* Messages Container - Fixed height with scroll */}
+      <div className="flex-1 overflow-y-auto surface">
+        <div className="min-h-full flex flex-col">
+          {/* Content Area */}
+          <div className="flex-1 p-6">
+            <div className="max-w-4xl mx-auto h-full">
+              {messages.length === 0 ? (
+                <div className="h-full flex items-center justify-center">
+                  <div className="text-center space-y-8 max-w-2xl">
+                    <div className="animate-slide-in">
+                      <div className="w-16 h-16 mx-auto bg-blue-100 dark:bg-blue-900 rounded-2xl flex items-center justify-center mb-6">
+                        <svg
+                          className="w-8 h-8 text-blue-600 dark:text-blue-400"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={1.5}
+                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-semibold text-primary mb-3">
+                        Welcome to RAG Assistant
+                      </h2>
+                      <p className="text-secondary text-lg mb-8 max-w-md mx-auto">
+                        Ask any question and get intelligent answers backed by
+                        your knowledge base.
+                      </p>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {[
+                        {
+                          icon: "🔍",
+                          title: "Smart Search",
+                          text: "Search through documents intelligently",
+                        },
+                        {
+                          icon: "💡",
+                          title: "Deep Insights",
+                          text: "Get comprehensive analysis and insights",
+                        },
+                        {
+                          icon: "📚",
+                          title: "Knowledge Base",
+                          text: "Access your curated knowledge repository",
+                        },
+                        {
+                          icon: "⚡",
+                          title: "Fast Responses",
+                          text: "Lightning-fast AI-powered answers",
+                        },
+                      ].map((feature, index) => (
+                        <div key={index} className="card p-4 text-left">
+                          <div className="text-2xl mb-3">{feature.icon}</div>
+                          <h3 className="font-medium text-primary mb-1">
+                            {feature.title}
+                          </h3>
+                          <p className="text-sm text-secondary">
+                            {feature.text}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ) : (
+                <div className="space-y-6 pb-4">
+                  {messages.map((message) => (
+                    <ChatMessage key={message.id} message={message} />
+                  ))}
+                  {isLoading && <LoadingMessage />}
+                </div>
+              )}
+              <div ref={messagesEndRef} />
             </div>
-          ) : (
-            <div className="space-y-6">
-              {messages.map((message) => (
-                <ChatMessage key={message.id} message={message} />
-              ))}
-              {isLoading && <LoadingMessage />}
-            </div>
-          )}
-          <div ref={messagesEndRef} />
+          </div>
         </div>
       </div>
 
-      {/* Input */}
-      <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
+      {/* Input - Fixed at bottom */}
+      <div className="flex-shrink-0 border-t border-default bg-surface">
+        <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
+      </div>
     </div>
   );
 }

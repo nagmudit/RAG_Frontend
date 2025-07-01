@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Message } from "@/types";
 
 interface ChatMessageProps {
@@ -27,6 +28,23 @@ interface ChatMessageProps {
 }
 
 export default function ChatMessage({ message }: ChatMessageProps) {
+  const [timeAgo, setTimeAgo] = useState(() =>
+    formatTimeAgo(message.timestamp)
+  );
+
+  useEffect(() => {
+    // Update immediately
+    setTimeAgo(formatTimeAgo(message.timestamp));
+
+    // Set up interval to update every minute
+    const interval = setInterval(() => {
+      setTimeAgo(formatTimeAgo(message.timestamp));
+    }, 60000); // Update every 60 seconds
+
+    // Cleanup interval on unmount
+    return () => clearInterval(interval);
+  }, [message.timestamp]);
+
   return (
     <div className={`flex ${message.isUser ? "justify-end" : "justify-start"}`}>
       <div className={`max-w-3xl ${message.isUser ? "order-2" : "order-1"}`}>
@@ -131,7 +149,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
               d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          {formatTimeAgo(message.timestamp)}
+          {timeAgo}
         </div>
       </div>
     </div>

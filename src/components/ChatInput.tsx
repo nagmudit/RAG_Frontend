@@ -30,10 +30,7 @@ export default function ChatInput({
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="surface-elevated border-t border-default p-6"
-    >
+    <form onSubmit={handleSubmit} className="surface-elevated p-6">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-end gap-3">
           <div className="flex-1">
@@ -42,9 +39,13 @@ export default function ChatInput({
               onChange={(e) => setMessage(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Ask a question..."
-              className="input-default w-full resize-none rounded-lg px-4 py-3 min-h-[48px] max-h-32 focus-ring"
+              className="input-default w-full resize-none rounded-lg px-4 py-3 h-12 focus-ring transition-all duration-200"
               disabled={isLoading}
-              rows={1}
+              style={{
+                minHeight: "48px",
+                maxHeight: "128px",
+                height: message.split("\n").length > 1 ? "auto" : "48px",
+              }}
             />
           </div>
 
