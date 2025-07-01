@@ -66,7 +66,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
                   {message.citations.slice(0, 5).map((citation, index) => (
                     <a
                       key={index}
-                      href={citation.url}
+                      href={citation.url || "#"}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="block p-3 rounded-lg border border-subtle hover:border-default transition-all duration-200 group surface hover:shadow-card"
@@ -77,13 +77,19 @@ export default function ChatMessage({ message }: ChatMessageProps) {
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="text-sm font-medium text-primary group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">
-                            {citation.title}
+                            {citation.title || "Document"}
                           </div>
-                          {citation.snippet && (
-                            <div className="text-xs text-muted mt-1 line-clamp-2">
-                              {citation.snippet}
-                            </div>
-                          )}
+                          <div className="text-xs text-muted mt-1 flex items-center space-x-2">
+                            <span>
+                              Relevance:{" "}
+                              {(citation.relevance_score * 100).toFixed(1)}%
+                            </span>
+                            {citation.source_type && (
+                              <span className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 rounded text-xs">
+                                {citation.source_type}
+                              </span>
+                            )}
+                          </div>
                         </div>
                         <svg
                           className="w-4 h-4 text-muted group-hover:text-secondary transition-colors"

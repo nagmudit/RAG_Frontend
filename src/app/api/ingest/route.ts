@@ -30,7 +30,8 @@ export async function POST(request: NextRequest) {
 
     const backendUrl = process.env.BACKEND_URL || 'http://localhost:8000';
     
-    const response = await fetch(`${backendUrl}/ingest`, {
+    // Call FastAPI scrape endpoint
+    const response = await fetch(`${backendUrl}/api/v1/scrape`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -41,13 +42,22 @@ export async function POST(request: NextRequest) {
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
       return NextResponse.json(
-        { error: errorData.error || 'Backend service error' },
+        { error: errorData.detail || 'Backend service error' },
         { status: response.status }
       );
     }
 
     const data = await response.json();
-    return NextResponse.json(data);
+    
+    // Transform FastAPI response to match frontend expectations
+    const transformedResponse = {
+      success: data.success,
+      message: data.message,
+      processed_urls: data.processed_urls,
+      failed_urls: data.failed_urls
+    };
+    
+    return NextResponse.json(transformedResponse);
   } catch (error) {
     console.error('Error in /api/ingest:', error);
     return NextResponse.json(

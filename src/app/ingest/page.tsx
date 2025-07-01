@@ -5,6 +5,8 @@ import Link from "next/link";
 import UrlIngest from "@/components/UrlIngest";
 import DocumentUpload from "@/components/DocumentUpload";
 import Navigation from "@/components/Navigation";
+import HealthCheck from "@/components/HealthCheck";
+import StatsDisplay from "@/components/StatsDisplay";
 
 export default function IngestPage() {
   const [activeTab, setActiveTab] = useState<"urls" | "documents">("urls");
@@ -25,6 +27,16 @@ export default function IngestPage() {
             >
               Close
             </Link>
+          </div>
+
+          {/* Backend Health Status */}
+          <div className="mb-6 p-4 border border-default rounded-lg bg-surface">
+            <HealthCheck />
+          </div>
+
+          {/* Stats Display */}
+          <div className="mb-6">
+            <StatsDisplay />
           </div>
 
           {/* Tab Navigation */}
