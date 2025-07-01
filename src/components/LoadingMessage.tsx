@@ -17,7 +17,7 @@ export default function LoadingMessage() {
                 style={{ animationDelay: "0.2s" }}
               ></div>
             </div>
-            <div className="text-secondary text-sm">AI is thinking...</div>
+            <div className="text-secondary text-sm">thinking...</div>
           </div>
 
           {/* Shimmer effect for text lines */}

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Message } from "@/types";
 import { askQuestion, ApiError } from "@/utils/api";
+import { useChatContext } from "@/contexts/ChatContext";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
 import LoadingMessage from "./LoadingMessage";
@@ -12,7 +13,7 @@ interface ChatProps {
 }
 
 export default function Chat({ onClearChat }: ChatProps) {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const { messages, setMessages, clearMessages } = useChatContext();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -25,17 +26,17 @@ export default function Chat({ onClearChat }: ChatProps) {
     scrollToBottom();
   }, [messages, isLoading]);
 
-  const clearChat = () => {
-    setMessages([]);
+  const clearChat = useCallback(() => {
+    clearMessages();
     setError(null);
-  };
+  }, [clearMessages]);
 
   useEffect(() => {
     // Pass the clearChat function to parent when component mounts
     if (onClearChat) {
       onClearChat(clearChat);
     }
-  }, [onClearChat]);
+  }, [onClearChat, clearChat]);
 
   const handleSendMessage = async (messageText: string) => {
     const userMessage: Message = {

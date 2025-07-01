@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
+import Link from "next/link";
 import { uploadDocuments, ApiError } from "@/utils/api";
 
 interface UploadedFile {
@@ -283,6 +284,58 @@ export default function DocumentUpload() {
       {/* File List */}
       {hasFiles && (
         <div className="mt-8">
+          {/* Success Message */}
+          {uploadedFiles.some((file) => file.status === "success") && (
+            <div className="mb-6 bg-green-50 border border-green-200 rounded-lg p-4 dark:bg-green-900/20 dark:border-green-800">
+              <div className="flex items-start">
+                <div className="flex-shrink-0">
+                  <div className="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                    <svg
+                      className="h-5 w-5 text-green-600 dark:text-green-400"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div className="ml-4 flex-1">
+                  <p className="text-green-800 dark:text-green-200 font-medium mb-3">
+                    {
+                      uploadedFiles.filter((file) => file.status === "success")
+                        .length
+                    }{" "}
+                    document(s) uploaded successfully! Your content is now
+                    available for RAG queries.
+                  </p>
+                  <Link
+                    href="/"
+                    className="inline-flex items-center space-x-2 text-green-700 dark:text-green-300 hover:text-green-800 dark:hover:text-green-200 font-medium transition-colors"
+                  >
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                      />
+                    </svg>
+                    <span>Start chatting with your new content →</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
               Uploaded Files ({uploadedFiles.length})
