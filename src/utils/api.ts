@@ -21,7 +21,33 @@ export class ApiError extends Error {
 
 // Base URL for your FastAPI backend
 const getBackendUrl = () => {
-  return process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+  
+  // Only log in development
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Using backend URL:', backendUrl);
+  }
+  
+  return backendUrl;
+};
+
+// Helper function to validate backend configuration
+export const validateBackendConfig = () => {
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+  
+  if (!backendUrl) {
+    console.warn('⚠️  NEXT_PUBLIC_BACKEND_URL is not set. Using fallback: http://localhost:8000');
+    console.warn('💡 Set NEXT_PUBLIC_BACKEND_URL in your .env.local file for production deployments');
+    return false;
+  }
+  
+  try {
+    new URL(backendUrl);
+    return true;
+  } catch (error) {
+    console.error('❌ Invalid backend URL:', backendUrl, error);
+    return false;
+  }
 };
 
 // Health check endpoint

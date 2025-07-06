@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { checkHealth, getRootInfo } from "@/utils/api";
+import { checkHealth, getRootInfo, validateBackendConfig } from "@/utils/api";
 import { HealthResponse, RootResponse } from "@/types";
 
 export default function HealthCheck() {
@@ -15,6 +15,9 @@ export default function HealthCheck() {
       try {
         setLoading(true);
         setError(null);
+
+        // Validate backend configuration first
+        validateBackendConfig();
 
         // Fetch both health and root info
         const [healthData, rootData] = await Promise.allSettled([
